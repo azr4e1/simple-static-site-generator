@@ -13,6 +13,31 @@ class TextNodeType(Enum):
     LINK = auto()
 
 
+class BlockNodeType(Enum):
+    HEADER = auto()
+    CODE = auto()
+    QUOTE = auto()
+    ULIST = auto()
+    OLIST = auto()
+    PARAGRAPH = auto()
+
+
+class BlockNode:
+    def __init__(self, text_nodes: list[TextNode],
+                 text_type: TextNodeType) -> None:
+        self.text_nodes = text_nodes
+        self.text_type = text_type
+
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, BlockNode):
+            return False
+        return (self.text == other.text
+                and self.text_type == other.text_type)
+
+    def __repr__(self) -> str:
+        return f"BlockNode({self.text}, {self.text_type})"
+
+
 class TextNode:
     def __init__(self, text: str,
                  text_type: TextNodeType,
