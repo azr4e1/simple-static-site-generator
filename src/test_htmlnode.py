@@ -1,9 +1,5 @@
 import unittest
 from htmlnode import HTMLNode, LeafNode, ParentNode
-import logging
-
-
-logging.basicConfig(filename='test.txt')
 
 
 class TestHTMLNode(unittest.TestCase):
