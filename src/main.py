@@ -1,8 +1,8 @@
-import utils
+import generate
 
 
 def main():
-    utils.recursive_copy('public', 'static')
+    generate.recursive_copy('public', 'static')
 
 
 main()
