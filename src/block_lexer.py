@@ -37,7 +37,7 @@ def is_codeblock(block: str) -> bool:
 
 def is_quoteblock(block: str) -> bool:
     lines = block.split("\n")
-    return all(map(lambda x: x.startswith(">"), lines))
+    return all(map(lambda x: x.startswith("> "), lines))
 
 
 def is_ulistblock(block: str) -> bool:

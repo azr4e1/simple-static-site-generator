@@ -80,7 +80,7 @@ def header_to_html(text: str) -> ParentNode:
 
 def quote_to_html(text: str) -> ParentNode:
     lines = text.split("\n")
-    prefix = ">"
+    prefix = "> "
     clean_text = "\n".join(list(map(lambda x: x.removeprefix(prefix), lines)))
     md_children = text_to_textnodes(clean_text)
     html_children = list(map(lambda x: x.to_html_node(), md_children))

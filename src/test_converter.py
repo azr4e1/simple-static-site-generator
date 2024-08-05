@@ -25,9 +25,9 @@ this is a block
 node
 ```
 
->and
->this
->is a *quote*
+> and
+> this
+> is a *quote*
                 """,
                 ParentNode('div', [
                     ParentNode('h1', [LeafNode('Hello')]),
@@ -69,9 +69,9 @@ this is a block
 node
 ```
 
->and
->this
->is a *quote*
+> and
+> this
+> is a *quote*
                 """,
                 ParentNode('div', [
                     ParentNode('h1', [LeafNode('Hello')]),
@@ -101,6 +101,50 @@ node
 this is
 
 - a markdown
+- file
+
+1. `come va`
+2. tutto *bene*
+
+![ciao](bello) this is a [link](google.com)
+
+```
+this is a block
+node
+```
+
+> and
+>this
+> is a *quote*
+                """,
+                ParentNode('div', [
+                    ParentNode('h1', [LeafNode('Hello')]),
+                    ParentNode('p', [LeafNode('this is')]),
+                    ParentNode('ul', [ParentNode('li', [LeafNode('a markdown')]),
+                                      ParentNode('li', [LeafNode('file')]),
+                                      ]),
+                    ParentNode('ol', [
+                        ParentNode('li', [LeafNode('come va', 'code')]),
+                        ParentNode('li', [LeafNode('tutto '),
+                                          LeafNode('bene', 'i')]),
+                    ]),
+                    ParentNode('p', [LeafNode('', 'img', props={'alt': 'ciao', 'src': 'bello'}),
+                                     LeafNode(' this is a '),
+                                     LeafNode('link', 'a', props={
+                                              'href': 'google.com'})
+                                     ]),
+                    ParentNode(
+                        'pre', [ParentNode('code', [LeafNode('\nthis is a block\nnode\n')])]),
+                    ParentNode('p', [LeafNode('> and'), LeafNode(
+                        '>this'), LeafNode('> is a '), LeafNode('quote', 'i')])
+                ])
+            ),
+            (
+                """# Hello
+
+this is
+
+- a markdown
 
 2. tutto *bene*
 
@@ -111,9 +155,9 @@ this is a block
 node
 ``#
 
->and
->this
->is a *quote*
+> and
+> this
+> is a *quote*
                 """,
                 ParentNode('div', [
                     ParentNode('h1', [LeafNode('Hello')]),
@@ -156,9 +200,9 @@ this is a block
 node
 ```
 
->and
->this
->is a *quote*
+> and
+> this
+> is a *quote*
                 """,
                 ValueError, "invalid markdown syntax ('**' not closed)"
             ),
@@ -180,9 +224,9 @@ this is a block
 node
 ```
 
->and
->this
->is a *quote*
+> and
+> this
+> is a *quote*
                 """,
                 ValueError, "invalid markdown syntax ('`' not closed)"
             ),
@@ -202,9 +246,9 @@ this is a block
 node
 ``#
 
->and
->this
->is a *quote
+> and
+> this
+> is a *quote
                 """, ValueError, "invalid markdown syntax ('*' not closed)"
 
             ),
