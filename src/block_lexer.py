@@ -1,4 +1,4 @@
-from textnode import BlockNodeType
+from blocknode import BlockNodeType
 import re
 
 

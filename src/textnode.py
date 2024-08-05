@@ -13,31 +13,6 @@ class TextNodeType(Enum):
     LINK = auto()
 
 
-class BlockNodeType(Enum):
-    HEADER = auto()
-    CODE = auto()
-    QUOTE = auto()
-    ULIST = auto()
-    OLIST = auto()
-    PARAGRAPH = auto()
-
-
-class BlockNode:
-    def __init__(self, text_nodes: list[TextNode],
-                 text_type: TextNodeType) -> None:
-        self.text_nodes = text_nodes
-        self.text_type = text_type
-
-    def __eq__(self, other: Any) -> bool:
-        if not isinstance(other, BlockNode):
-            return False
-        return (self.text == other.text
-                and self.text_type == other.text_type)
-
-    def __repr__(self) -> str:
-        return f"BlockNode({self.text}, {self.text_type})"
-
-
 class TextNode:
     def __init__(self, text: str,
                  text_type: TextNodeType,
@@ -56,25 +31,28 @@ class TextNode:
     def __repr__(self) -> str:
         return f"TextNode({self.text}, {self.text_type}, {self.url})"
 
+    def to_html_node(self) -> LeafNode:
+        match self.text_type:
+            case TextNodeType.TEXT:
+                return LeafNode(self.text)
+            case TextNodeType.BOLD:
+                return LeafNode(self.text, 'b')
+            case TextNodeType.ITALIC:
+                return LeafNode(self.text, 'i')
+            case TextNodeType.CODE:
+                return LeafNode(self.text, 'code')
+            case TextNodeType.LINK:
+                return LeafNode(self.text, 'a', {'href': self.url
+                                                 if self.url is not None
+                                                 else ""})
+            case TextNodeType.IMAGE:
+                return LeafNode("", 'img', {'alt': self.text,
+                                            'src': self.url
+                                            if self.url is not None
+                                            else ""})
+            case _:
+                raise ValueError("text type not supported")
+
 
 def text_node_to_html_node(text_node: TextNode) -> LeafNode:
-    match text_node.text_type:
-        case TextNodeType.TEXT:
-            return LeafNode(text_node.text)
-        case TextNodeType.BOLD:
-            return LeafNode(text_node.text, 'b')
-        case TextNodeType.ITALIC:
-            return LeafNode(text_node.text, 'i')
-        case TextNodeType.CODE:
-            return LeafNode(text_node.text, 'code')
-        case TextNodeType.LINK:
-            return LeafNode(text_node.text, 'a', {'href': text_node.url
-                                                  if text_node.url is not None
-                                                  else ""})
-        case TextNodeType.IMAGE:
-            return LeafNode(text_node.text, 'img', {'alt': text_node.text,
-                                                    'src': text_node.url
-                                                    if text_node.url is not None
-                                                    else ""})
-        case _:
-            raise ValueError("text type not supported")
+    return text_node.to_html_node()

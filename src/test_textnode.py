@@ -23,9 +23,9 @@ class TestTextNode(TestCase):
             (TextNode("ciao", TextNodeType.CODE), LeafNode('ciao', 'code')),
             (TextNode("ciao", TextNodeType.TEXT), LeafNode("ciao")),
             (TextNode("ciao", TextNodeType.IMAGE), LeafNode(
-                'ciao', 'img', {'src': '', 'alt': 'ciao'})),
+                '', 'img', {'src': '', 'alt': 'ciao'})),
             (TextNode("ciao", TextNodeType.IMAGE, "github.com"),
-             LeafNode('ciao', 'img', {'src': 'github.com', 'alt': 'ciao'})),
+             LeafNode('', 'img', {'src': 'github.com', 'alt': 'ciao'})),
             (TextNode("ciao", TextNodeType.LINK),
              LeafNode('ciao', 'a', {'href': ''})),
             (TextNode("ciao", TextNodeType.LINK, "github.com"),

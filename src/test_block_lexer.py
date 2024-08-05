@@ -1,5 +1,5 @@
 from block_lexer import markdown_to_blocks, block_to_block_type
-from textnode import BlockNodeType
+from blocknode import BlockNodeType
 import unittest
 
 
@@ -147,9 +147,27 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
                 BlockNodeType.CODE
             ),
             (
+                """``` This is the first list item in a list block
+3. This is a list item
+2. This is another list item```@""",
+                BlockNodeType.PARAGRAPH
+            ),
+            (
                 """`` This is the first list item in a list block
 3. This is a list item
 2. This is another list item```""",
+                BlockNodeType.PARAGRAPH
+            ),
+            (
+                """> This is the first list item in a list block
+>This is a list item
+>This is another list item""",
+                BlockNodeType.QUOTE
+            ),
+            (
+                """> This is the first list item in a list block
+This is a list item
+>This is another list item""",
                 BlockNodeType.PARAGRAPH
             ),
         ]

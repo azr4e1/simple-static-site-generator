@@ -131,6 +131,23 @@ class TestHTMLNode(unittest.TestCase):
                     ParentNode(
                         'div',
                         [
+                            LeafNode('', 'code'),
+                            LeafNode("Normal text", None),
+                        ],
+                        props={'color': 'red'},
+                    ),
+                    LeafNode("Bold text", "b"),
+                    LeafNode("Normal text", None),
+                    LeafNode("italic text", "i"),
+                    LeafNode("Normal text", None),
+                ],
+            ), ValueError, "leaf node nees a value"),
+            (ParentNode(
+                "p",
+                [
+                    ParentNode(
+                        'div',
+                        [
                             ParentNode(
                                 'div',
                                 [

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Optional, Any
+from typing import Optional, Any, Sequence
 from functools import reduce
 
 
@@ -7,7 +7,7 @@ class HTMLNode:
     def __init__(self,
                  value: Optional[str] = None,
                  tag: Optional[str] = None,
-                 children: Optional[list[HTMLNode]] = None,
+                 children: Optional[Sequence[HTMLNode]] = None,
                  props: Optional[dict[str, str]] = None) -> None:
         self.tag = tag
         self.value = value
@@ -40,7 +40,7 @@ class HTMLNode:
 class ParentNode(HTMLNode):
     def __init__(self,
                  tag: str,
-                 children: list[HTMLNode],
+                 children: Sequence[HTMLNode],
                  props: Optional[dict[str, str]] = None) -> None:
         super().__init__(None, tag, children, props)
 
@@ -63,7 +63,9 @@ class LeafNode(HTMLNode):
         super().__init__(value, tag, None, props)
 
     def to_html(self) -> str:
-        if self.value is None:
+        if self.tag == 'img':
+            return f"<{self.tag}{self.props_to_html()}>"
+        if self.value is None or self.value == '':
             raise ValueError("leaf node nees a value")
         if self.tag is None:
             return self.value
