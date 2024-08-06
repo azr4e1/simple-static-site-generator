@@ -3,7 +3,7 @@ import re
 
 
 _IMAGE_PATTERN = re.compile(r"!\[(.*?)\]\((.*?)\)")
-_LINK_PATTERN = re.compile(r"[^!]\[(.*?)\]\((.*?)\)")
+_LINK_PATTERN = re.compile(r"\[(.*?)\]\((.*?)\)")
 _DEFAULT_DELIMITERS = {
     TextNodeType.CODE: '`',
     TextNodeType.BOLD: '**',

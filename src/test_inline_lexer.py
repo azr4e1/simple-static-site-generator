@@ -168,12 +168,16 @@ class TestLexer(unittest.TestCase):
         ]
         self.linkExtractor = [
             (
+                "[come](stai?)",
+                [('come', 'stai?')]
+            ),
+            (
                 "ciao ![come](stai?) tutto bene",
-                []
+                [('come', 'stai?')]
             ),
             (
                 "ciao [come](stai?) ![tutto](bene)",
-                [("come", "stai?")]
+                [("come", "stai?"), ('tutto', 'bene')]
             ),
             (
                 "ciao [come](stai?) [tutto](bene)",
@@ -221,8 +225,9 @@ class TestLexer(unittest.TestCase):
                     TextNode("This is text with a link ", TextNodeType.TEXT),
                     TextNode("to boot dev", TextNodeType.LINK,
                              "https://www.boot.dev"),
+                    TextNode(" and !", TextNodeType.TEXT),
                     TextNode(
-                        " and ![to youtube](https://www.youtube.com/@bootdotdev)", TextNodeType.TEXT),
+                        'to youtube', TextNodeType.LINK, "https://www.youtube.com/@bootdotdev"),
                 ]),
             (
                 [TextNode(

@@ -180,6 +180,51 @@ node
                                               LeafNode('quote', 'i')])
                 ])
             ),
+            (
+                """# Hello
+
+[Back home](link)
+
+this is
+
+- a markdown
+
+2. tutto *bene*
+
+![ciao](bello) this is a [link](google.com)
+
+`ok`
+this is a block
+node
+``#
+
+> and
+> this
+> is a *quote*
+                """,
+                ParentNode('div', [
+                    ParentNode('h1', [LeafNode('Hello')]),
+                    ParentNode(
+                        'p', [LeafNode('Back home', 'a', props={'href': 'link'})]),
+                    ParentNode('p', [LeafNode('this is')]),
+                    ParentNode('ul', [ParentNode('li', [LeafNode('a markdown')]),
+                                      ]),
+                    ParentNode('p', [LeafNode('2. tutto '),
+                                     LeafNode('bene', 'i')]),
+                    ParentNode('p', [LeafNode('', 'img', props={'alt': 'ciao', 'src': 'bello'}),
+                                     LeafNode(' this is a '),
+                                     LeafNode('link', 'a', props={
+                                              'href': 'google.com'})
+                                     ]),
+                    ParentNode(
+                        'p', [LeafNode('ok', 'code'),
+                              LeafNode('this is a block'),
+                              LeafNode('node'),
+                              LeafNode('#')]),
+                    ParentNode('blockquote', [LeafNode('and\nthis\nis a '),
+                                              LeafNode('quote', 'i')])
+                ])
+            ),
         ]
         self.converter_test_error = [
             (
