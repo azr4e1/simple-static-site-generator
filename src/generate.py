@@ -39,9 +39,11 @@ def extract_title(markdown: str) -> str:
     raise Exception("markdown contains no title")
 
 
-def generate_page(from_path: str | Path, template_path: str | Path, dest_path: str | Path) -> None:
-    print(f"Generating page from {from_path} to {
-          dest_path} using {template_path}")
+def generate_page(from_path: str | Path,
+                  template_path: str | Path,
+                  dest_path: str | Path) -> None:
+    print("Generating page from "
+          f"{from_path} to {dest_path} using {template_path}")
     from_path = Path(from_path)
     template_path = Path(template_path)
     dest_path = Path(dest_path)
