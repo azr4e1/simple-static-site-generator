@@ -6,6 +6,8 @@ from converter import markdown_to_html_node
 
 _TITLE_PATTERN = "{{ Title }}"
 _CONTENT_PATTERN = "{{ Content }}"
+_MARKDOWN_SUFFIX = '.md'
+_HTML_SUFFIX = '.html'
 
 
 def recursive_copy(dst: str | Path, src: str | Path) -> None:
@@ -60,3 +62,27 @@ def generate_page(from_path: str | Path,
     template = template.replace(_CONTENT_PATTERN, html_content)
     os.makedirs(dest_path.parent, exist_ok=True)
     dest_path.write_text(template)
+
+
+def generate_pages_recursive(dir_path_content: str | Path,
+                             template_path: str | Path,
+                             dest_dir_path: str | Path) -> None:
+    dir_path_content = Path(dir_path_content)
+    template_path = Path(template_path)
+    dest_dir_path = Path(dest_dir_path)
+    if not dir_path_content.exists() or not dir_path_content.is_dir():
+        raise Exception(f"{dir_path_content} is not a directory")
+
+    files = os.listdir(dir_path_content)
+    for el in files:
+        full_el_path = dir_path_content / Path(el)
+        full_dest_path = dest_dir_path / Path(el)
+        if full_el_path.is_dir():
+            generate_pages_recursive(full_el_path,
+                                     template_path,
+                                     full_dest_path)
+        else:
+            if full_el_path.suffix == _MARKDOWN_SUFFIX:
+                generate_page(full_el_path,
+                              template_path,
+                              full_dest_path.with_suffix(_HTML_SUFFIX))
